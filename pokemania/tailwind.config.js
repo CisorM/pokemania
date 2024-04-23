@@ -6,13 +6,21 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        "bgPokedex": 
+        "linear-gradient(135deg, #CBE8F4 0%, #0070FF 100%)",
+      },
       colors:  {
-        "gris": "#dde6f5",
-        "shadow-gris": "#DCE1EA",
-        "azul": "#7c92ffcc",
-        "dark-blue": "#4d7cff",
-        "amarillo": "#f4f0a4",
-        "blanco": "#f1f4fe",
+        "bgRed": "#BD3736",
+        "bgWhite": "#FCFCFC",
+        "bgBlack": "#373737",
+        "bgGray": "#F0F0F0",
+        "bgOrange": "#ED8642",
+        "bgBlanco": "#f1f4fe",
+      },
+      fontFamily:  {
+        "flexo": ['Flexo-Medium'],
+        "pokedex": ['Pokedex']
       },
     },
   },

@@ -1,3 +1,13 @@
+@font-face {
+    font-family: 'Pokedex';
+    src: url('../public//fonts/Pokemon\ X\ and\ Y.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Flexo-Medium';
+    src: url('../public/fonts/Flexo-Medium.ttf') format('truetype');
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

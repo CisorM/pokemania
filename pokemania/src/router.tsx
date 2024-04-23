@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { Page404 } from './components/Page404';
 
 export const router = createBrowserRouter([
 	{
@@ -13,6 +14,9 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: 'local', element: <div>Partida local</div>,
+			},
+			{
+				path: '*', element: <Page404/>,
 			},
 		],
 	},
