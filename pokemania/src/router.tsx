@@ -1,11 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { Page404 } from './components/Page404';
+import { Page404, HomePage} from './components/index'
+import App from './App';
 
 export const router = createBrowserRouter([
 	{
 		path: '/',
+		element: <App />,
 		children: [
-			{ index: true, element: <div>Bienvenido a pokemania 2</div> },
+			{ index: true, element: <HomePage /> },
 			{
 				path: 'pokedex', element: <div>En la pokedex</div>,
 				children: [
@@ -15,9 +17,9 @@ export const router = createBrowserRouter([
 			{
 				path: 'local', element: <div>Partida local</div>,
 			},
-			{
-				path: '*', element: <Page404/>,
-			},
 		],
+	},
+	{
+		path: '*', element: <Page404/>,
 	},
 ]);

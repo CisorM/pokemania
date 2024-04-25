@@ -2,6 +2,7 @@
 export default {
   content: [
     "./index.html",
+    "./App.tsx",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
@@ -17,6 +18,7 @@ export default {
         "bgGray": "#F0F0F0",
         "bgOrange": "#ED8642",
         "bgBlanco": "#f1f4fe",
+        "bgBlue": "#2980EF",
       },
       fontFamily:  {
         "flexo": ['Flexo-Medium'],
