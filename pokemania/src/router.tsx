@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { Page404, HomePage} from './components/index'
+import { Page404, HomePage, Pokedex} from './pages/index'
 import App from './App';
 
 export const router = createBrowserRouter([
@@ -9,7 +9,7 @@ export const router = createBrowserRouter([
 		children: [
 			{ index: true, element: <HomePage /> },
 			{
-				path: 'pokedex', element: <div>En la pokedex</div>,
+				path: 'pokedex', element: <Pokedex />,
 				children: [
 					{ path: 'pokedex/:pokemonId', element:<div>En la pokedex del pokemon 1</div>},
 				],

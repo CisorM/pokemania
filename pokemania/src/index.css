@@ -26,6 +26,15 @@ body {
     overflow-x: hidden;
 }
 
+.elipse{
+  clip-path: ellipse(40% 50% at 50% 50%);
+}
+
+.bgRows{
+  background-image: url("images/bg-rows.png");
+  background-repeat: no-repeat;
+}
+
 .ocean {
     position: absolute;
     bottom: -25px;
@@ -70,6 +79,10 @@ body {
     opacity: .7;
   }
   
+  .pokeJump{
+    animation: pokeJump .2s alternate infinite;
+  }
+  
 
   @keyframes wave {
     0% {
@@ -77,6 +90,15 @@ body {
     }
     100% {
       margin-right: -1600px;
+    }
+  }
+
+  @keyframes pokeJump {
+    0% {
+      transform: translateY(-1px);
+    }
+    100% {
+      transform: translateY(1px);
     }
   }
   
@@ -94,3 +116,12 @@ body {
     }
   }
 
+  .translate-up {
+    transform: translateY(-10%);
+    transition: transform 0.3s ease-out;
+  }
+  
+  .translate-down {
+    transform: translateY(10%);
+    transition: transform 0.3s ease-out;
+  }
