@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom"
 import { Header, Footer } from "./components/index"
 
-function App() {
+export function App() {
 
   return (
     <main className="w-[95%] m-auto">
@@ -13,5 +13,3 @@ function App() {
     </main>
   )
 }
-
-export default App
