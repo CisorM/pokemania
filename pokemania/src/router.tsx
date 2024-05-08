@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { Page404, HomePage, Pokedex} from './pages/index'
-import App from './App';
+import { App } from './App';
 
 export const router = createBrowserRouter([
 	{

@@ -30,21 +30,10 @@ body {
     overflow-x: hidden;
 }
 
-.elipse{
-  clip-path: ellipse(40% 50% at 50% 50%);
-}
-
 .bgRows{
   background-image: url("images/bg-rows.png");
   background-repeat: no-repeat;
 }
-
-.ocean {
-    position: absolute;
-    bottom: -25px;
-    right: 0;
-    width: 100%;
-  }
 
 .wave {
     background: url("svgs/wave.svg") repeat-x;
@@ -59,26 +48,19 @@ body {
 .wave#lapras {
     background: url("images/lpras.png") no-repeat;
     background-size: 150px;
-    position: absolute;
-    bottom: 0;
-    right: 0;
     width: 100%;
     height: 100px;
-    z-index: 995;
+    z-index: 965;
     animation: lapras 20s linear infinite;
   }
 
   .wave:nth-of-type(2) {
-    bottom: 0;
-    right: 0;
     animation: wave 20s cubic-bezier(0.36, 0.45, 0.63, 0.53) alternate infinite;
     opacity: .5;
-    z-index: 999;
+    z-index: 966;
   }
   
   .wave:nth-of-type(3) {
-    bottom: 0;
-    right: 0;
     animation: wave 14s cubic-bezier(0.36, 0.45, 0.63, 0.53) alternate infinite;
     opacity: .7;
   }
@@ -87,6 +69,51 @@ body {
     animation: pokeJump .2s alternate infinite;
   }
   
+  .bars {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    pointer-events: none;
+  }
+  
+  .bars > div {
+    transform: translateX(-100%);
+  }
+  
+  .show > div {
+    animation: showBar 0.2s both ease-in-out;
+  }
+  
+  .hide > div {
+    animation: hideBar 0.2s both ease-in-out;
+  }
+  
+  .show > div:nth-child(1), .hide > div:nth-child(1) {
+    animation-delay: 0s;
+  }
+
+  .show > div:nth-child(2), .hide > div:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  
+  .show > div:nth-child(3), .hide > div:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+  
+  @keyframes showBar {
+    0% { transform: translateX(-100%); }
+    100% {  transform: translateX(0%);  }
+  }
+  
+  @keyframes hideBar {
+    0% {  transform: translateX(0%);  }
+    100% {  transform: translateX(100%);  }
+  }
 
   @keyframes wave {
     0% {
@@ -118,14 +145,4 @@ body {
       background-position-x: 100%;
       height: 0;
     }
-  }
-
-  .translate-up {
-    transform: translateY(-10%);
-    transition: transform 0.3s ease-out;
-  }
-  
-  .translate-down {
-    transform: translateY(10%);
-    transition: transform 0.3s ease-out;
   }

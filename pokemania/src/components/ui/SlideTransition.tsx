@@ -1,31 +1,13 @@
-import { useRef, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+export const BarsTransition = ({ animate }: { animate: boolean }) => {
+  return (
+    <article>
+      <div className={`bars ${animate? 'show' : 'hide'}`}>
+        <div className="w-full bg-bgRed z-[1000]" />
+        <div className="w-full bg-bgBlack z-[1000]"  />
+        <div className="w-full bg-bgRed z-[1000]" />
+      </div>
 
-export default function SlideTransition({ children }) {
-  const location = useLocation()
-  const nodeRef = useRef(null)
-
-  useEffect(() => {
-    const node = nodeRef.current
-    if (node) {
-      const { scrollWidth, clientWidth } = node
-      const distance = scrollWidth - clientWidth
-      const duration = 300 // duration in milliseconds
-      const startTime = performance.now()
-
-      const animate = (time) => {
-        const progress = (time - startTime) / duration
-        if (progress < 1) {
-          node.style.transform = `translateX(${distance * progress}px)`
-          requestAnimationFrame(animate)
-        } else {
-          node.style.transform = 'translateX(0)'
-        }
-      }
-
-      requestAnimationFrame(animate)
-    }
-  }, [location])
-
-  return <div ref={nodeRef}>{children}</div>
-}
+      <div className={`${animate? 'absolute inset-0' : ''} bg-bgWhite z-[999] h-full w-full`}/>
+    </article>
+  );
+};

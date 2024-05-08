@@ -4,7 +4,7 @@ import Waves from "./Waves";
 export const Footer = () => {
 	return (
     <footer id="#footer" className="relative w-full min-h-[100px] px-5 pt-10 pb-20 flex justify-center items-center flex-col">       
-        <div className="relative flex flex-col gap-4 justify-center items-center mx-3 flex-wrap z-[1000]">
+        <div className="relative flex flex-col gap-4 justify-center items-center mx-3 flex-wrap z-[950]">
             <ul className="flex gap-4 p-3 border-dashed border-2 border-bgBlack">
                 <li className="list-none transition-all hover:-translate-y-2">
                     <Link to="https://github.com/CisorM" target="_blank" rel="noopener noreferrer">
