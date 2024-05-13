@@ -1,8 +1,11 @@
 import { FilterModal } from "./FilterModal";
-import { SearchBar } from "./ui/SearchBar";
+import { SearchBar } from "../ui/SearchBar";
 import { useState } from "react";
 
-export const Filter = () => {
+export const Filter = ({ setActiveIndex, setTranslate }: 
+  { setActiveIndex: React.Dispatch<React.SetStateAction<number>>,
+    setTranslate: React.Dispatch<React.SetStateAction<number>>,
+  }) => {
     const [open, setOpen] = useState(false);
     const handleModal = () => setOpen(!open);
 
@@ -12,7 +15,12 @@ export const Filter = () => {
             <div>
                 <SearchBar />
             </div>
-            <FilterModal isOpen={open} setIsOpen={setOpen}/>
+            <FilterModal 
+                isOpen={open} 
+                setIsOpen={setOpen} 
+                setActiveIndex={setActiveIndex}
+                setTranslate={setTranslate}
+                />
         </article>
     );
 };

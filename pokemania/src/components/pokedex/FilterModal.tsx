@@ -1,11 +1,11 @@
 import { useContext, useState } from 'react';
-import { ModalProps } from '../interfaces/ModalProps';
-import { Modal } from './ui/Modal';
-import { regionsData } from '../helpers/region';
-import { typesData } from '../helpers/types';
-import { PokemonContext } from '../context/PokedexContext';
+import { ModalProps } from '../../interfaces/ModalProps';
+import { Modal } from '../ui/Modal';
+import { regionsData } from '../../helpers/region';
+import { typesData } from '../../helpers/types';
+import { PokemonContext } from '../../context/PokedexContext';
 
-export const FilterModal: React.FC<ModalProps> = ({isOpen, setIsOpen}) => {
+export const FilterModal: React.FC<ModalProps> = ({isOpen, setIsOpen, setActiveIndex, setTranslate}) => {
 
   const { setRegion, setTypes, setPage } = useContext(PokemonContext)
   const [selectedRegion, setSelectedRegion] = useState<number | null>(null);
@@ -26,6 +26,8 @@ export const FilterModal: React.FC<ModalProps> = ({isOpen, setIsOpen}) => {
     if (selectedRegion!== null) {
       setRegion(selectedRegion);
       setPage(1);
+      setActiveIndex?.(0)
+      setTranslate?.(0);
     }
 /*     setTypes(selectedTypes);*/
       setIsOpen(false);  

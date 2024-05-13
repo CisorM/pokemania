@@ -6,3 +6,10 @@ export interface PokemonCardProps {
     translateY: number;
     handleButtonClick: (direction: string) => void;
   }
+
+export interface ButtonProps {
+  onClick: () => void;
+  className: string;
+  icon: string;
+
+}

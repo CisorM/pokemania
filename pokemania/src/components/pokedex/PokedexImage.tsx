@@ -1,4 +1,4 @@
-import {PokemonImageProps} from '../interfaces/PokemonImageProps';
+import { PokemonImageProps } from '../../interfaces/PokemonImageProps';
 
 export const PokemonImage: React.FC<PokemonImageProps> = ({ pokemon, activeIndex }) => {
   return (
@@ -8,6 +8,7 @@ export const PokemonImage: React.FC<PokemonImageProps> = ({ pokemon, activeIndex
         alt={pokemon[activeIndex]?.name}
         className="w-16 sm:w-32 md:w-64"
         />
+        <span className='uppercase font-pokedex font-bold text-3xl text-bgWhite tracking-widest '>{pokemon[activeIndex]?.name}</span>
     </aside>
   );
 };
