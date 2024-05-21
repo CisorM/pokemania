@@ -7,30 +7,33 @@ import { PokemonContext } from '../../context/PokedexContext';
 
 export const FilterModal: React.FC<ModalProps> = ({isOpen, setIsOpen, setActiveIndex, setTranslate}) => {
 
-  const { setRegion, setTypes, setPage } = useContext(PokemonContext)
+  const { setRegion, setType, setPage, setFetchByRegion } = useContext(PokemonContext)
   const [selectedRegion, setSelectedRegion] = useState<number | null>(null);
+  const [selectedTypes, setSelectedTypes] = useState<number | null>(null);
 
   const handleRegionSelect = (regionId: number) => {
+    setSelectedTypes(null);
     setSelectedRegion(regionId);
   };
 
-/*   const handleTypeSelect = (type: {type: string; color: string; img: string}) => {
-    if (selectedTypes.includes(type.type)) {
-      setTypes(selectedTypes.filter((t) => t !== type.type));
-    } else {
-      setSelectedTypes([...selectedTypes, type.type]);
-    }
-  }; */
+  const handleTypeSelect = (typeId: number) => {
+    setSelectedRegion(null);
+    setSelectedTypes(typeId);
+  };
 
   const handleFilter = () => {
     if (selectedRegion!== null) {
+      setFetchByRegion(true)
       setRegion(selectedRegion);
-      setPage(1);
-      setActiveIndex?.(0)
-      setTranslate?.(0);
+    } 
+    else if(selectedTypes !== null) {
+      setFetchByRegion(false)
+      setType(selectedTypes);
     }
-/*     setTypes(selectedTypes);*/
-      setIsOpen(false);  
+    setPage(1);
+    setIsOpen(false);  
+    setActiveIndex?.(0)
+    setTranslate?.(0);
     };
 
 
@@ -61,27 +64,16 @@ export const FilterModal: React.FC<ModalProps> = ({isOpen, setIsOpen, setActiveI
           <h3 className='text-lg mb-3'>Tipos</h3>
             <ul className='grid grid-cols-2 sm:grid-cols-3 gap-2'>
             {typesData.map((type) => (
-                <li key={type.type} className={`flex justify-center sm:justify-start gap-2 p-2 rounded-full sm:rounded-md border border-solid opacity-50`} /* ${selectedTypes.includes(type.type) ? 'opacity-100 border-bgBlack border-2' : ''}  */
+                <li key={type.id} className={`flex justify-center md:justify-start gap-2 p-2 rounded-full sm:rounded-md ${selectedTypes === type.id ? 'opacity-100 border-bgBlack border-solid border-2' : 'opacity-50'}`}
                     style={{ backgroundColor: type.color }}
-                    onClick={(e) => {
-                        e.stopPropagation();
-/*                         handleTypeSelect(type);
- */                    }}
+                    onClick={() => handleTypeSelect(type.id)}
                     >
                     <input
                     className='hidden'
                     type="checkbox"
                     name="type"
                     value={type.type}
-/*                     checked={selectedTypes.includes(type.type)}
-                    onChange={(e) => {
-                        e.stopPropagation();
-                        if (e.target.checked) {
-                        setSelectedTypes([...selectedTypes, type.type]);
-                        } else {
-                        setSelectedTypes(selectedTypes.filter((t) => t !== type.type));
-                        }
-                    }} */
+                    checked={selectedTypes === type.id}
                     />
                     <label className='flex gap-2'>
                         <img src={type.img} alt={type.type} className="w-6 h-6" />

@@ -8,6 +8,20 @@ export interface PokedexList {
     }[];
   }
 
+  export interface PokemonType {
+    pokemon: {
+      pokemon: {
+        url: string;
+      };
+    }[];
+  }
+
+export interface PokemonPokedex {
+  results: {
+    url: string;
+  }[];
+}
+
 export interface PokemonSpecies {
   color: {
     name: string;

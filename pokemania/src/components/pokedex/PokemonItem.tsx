@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 interface PokemonItemProps {
     pokemonItem: {
       id: number;
@@ -16,7 +18,7 @@ export const PokemonItem: React.FC<PokemonItemProps> = ({
     translateY,
   }) => {
     return (
-      <div
+      <Link to={`${pokemonItem.id}`}
         style={{ transform: `translateY(${translateY}%)` }}
         className={`cursor-pointer mr-5 flex items-center gap-2 p-1 rounded-md transition-transform duration-300 ${
           isActive? 'bg-bgBlue' : 'bg-bgOrange'
@@ -34,6 +36,6 @@ export const PokemonItem: React.FC<PokemonItemProps> = ({
             className={`w-10 transition-all ${isActive? 'pokeJump' : ''}`}
           />
         </div>
-      </div>
+      </Link>
     );
   };
