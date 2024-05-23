@@ -16,12 +16,6 @@ export interface PokedexList {
     }[];
   }
 
-export interface PokemonPokedex {
-  results: {
-    url: string;
-  }[];
-}
-
 export interface PokemonSpecies {
   color: {
     name: string;
@@ -61,6 +55,17 @@ export interface Pokemon {
             };
         };
     };
+}
+
+export interface PokemonInfo {
+  genera: string;
+  name: string;
+  id: number;
+  height: number;
+  weight: number;
+  types: string[];
+  frontDefaultSprite: string;
+  officialArtworkSprite: string;
 }
 
 

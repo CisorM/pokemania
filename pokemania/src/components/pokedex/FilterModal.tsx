@@ -73,7 +73,7 @@ export const FilterModal: React.FC<ModalProps> = ({isOpen, setIsOpen, setActiveI
                     type="checkbox"
                     name="type"
                     value={type.type}
-                    checked={selectedTypes === type.id}
+                    onChange={() => setSelectedTypes(type.id)}
                     />
                     <label className='flex gap-2'>
                         <img src={type.img} alt={type.type} className="w-6 h-6" />

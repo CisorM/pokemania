@@ -1,4 +1,4 @@
-import { PokedexList, PokemonPokedex, PokemonType } from "../interfaces/Pokedex";
+import { PokedexList, PokemonSpecies, PokemonType } from "../interfaces/Pokedex";
 
 const baseURL = 'https://pokeapi.co/api/v2/';
 
@@ -12,7 +12,7 @@ export const getAllPokemonByType = async (type:number): Promise<PokemonType> => 
     .then(response => response.json() as Promise<PokemonType>);
 }
 
-export const getPokemonPokedex = async (pokeId:number): Promise<PokemonPokedex> => {
+export const getPokemonPokedex = async (pokeId:string | undefined): Promise<PokemonSpecies> => {
     return await fetch(`${baseURL}pokemon-species/${pokeId}/`)
-    .then(response => response.json() as Promise<PokemonPokedex>);
+    .then(response => response.json() as Promise<PokemonSpecies>);
 }

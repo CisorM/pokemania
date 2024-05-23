@@ -35,6 +35,11 @@ body {
   background-repeat: no-repeat;
 }
 
+.bgPokedex{
+  background-image: url("images/bgPokedex.png");
+  background-repeat: repeat;
+}
+
 .wave {
     background: url("svgs/wave.svg") repeat-x;
     position: absolute;
