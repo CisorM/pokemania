@@ -1,6 +1,6 @@
 export const typesData = [
     { id: 1, type: "normal", color: "#FFCC99", img: "/types/normal.png" },
-    { id: 2, type: "fight", color: "#FF3333", img: "/types/fight.png" },
+    { id: 2, type: "fighting", color: "#FF3333", img: "/types/fighting.png" },
     { id: 3, type: "flying", color: "#6699FF", img: "/types/flying.png" },
     { id: 4, type: "poison", color: "#AA66CC", img: "/types/poison.png" },
     { id: 5, type: "ground", color: "#FFCC66", img: "/types/ground.png" },

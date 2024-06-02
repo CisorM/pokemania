@@ -25,6 +25,13 @@ export interface PokemonSpecies {
     genus: string;
   }[];
 
+  flavor_text_entries: {
+    language: {
+      name: string
+    };
+    flavor_text: string
+  }[];
+
   is_baby: boolean;
   is_legendary: boolean;
   is_mythical: boolean;
@@ -60,6 +67,7 @@ export interface Pokemon {
 export interface PokemonInfo {
   genera: string;
   name: string;
+  flavorText: string;
   id: number;
   height: number;
   weight: number;

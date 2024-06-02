@@ -1,11 +1,13 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { getPokemonPokedex } from "../helpers/utils";
 import { Pokemon, PokemonInfo } from "../interfaces/Pokedex";
 import { useState, useEffect } from "react";
+import { typesData } from "../helpers/types";
 
 export const PokemonDetails = () => {
-  const { pokemonId } = useParams();
+  const { pokemonId } = useParams<{ pokemonId: string }>();
   const [pokemonInfo, setPokemonInfo] = useState<PokemonInfo>();
+  const pokemonIdNumber = pokemonId ? parseInt(pokemonId) : 1;
 
   async function getPokemonInfo(pokemonId: string | undefined) {
     try {
@@ -15,8 +17,14 @@ export const PokemonDetails = () => {
       const pokemonResponse = await fetch(varietyUrl);
       const pokemonData: Pokemon = await pokemonResponse.json();
 
-      const pokemonTypeInfo = {
+      const flavorTextEntry = pokemonPokedex.flavor_text_entries.find(
+        (entry) => entry.language?.name === "es"
+      );
+      const pokemonTypeInfo: PokemonInfo = {
         genera: pokemonPokedex.genera[5]?.genus || "Pokemon desconocido",
+        flavorText:
+          flavorTextEntry?.flavor_text ||
+          "Descripción no disponible actualmente :(",
         name: pokemonData.name || "???",
         id: pokemonData.id,
         height: pokemonData.height,
@@ -33,43 +41,69 @@ export const PokemonDetails = () => {
     }
   }
 
+  //Funcion de Fetch
+
   useEffect(() => {
     getPokemonInfo(pokemonId);
   }, [pokemonId]);
 
   return (
-    <section className="flex flex-col h-screen">
-      {pokemonInfo && (
+    <section className="flex flex-col h-screen sm:w-[90%] sm:mx-auto">
+      <header className="bg-bgRed p-3 rounded-sm">
+        <div className="flex gap-4 items-center">
+          <Link
+            to={"/pokedex"}
+            className="flex items-center justify-center bg-bgBlack p-2 w-6 h-6 rounded-full"
+          >
+            <span className="text-bgWhite text-[1rem]">&lt;</span>
+          </Link>
+          <h2 className="font-pokedex font-bold text-lg text-bgWhite tracking-widest">
+            INFO.
+          </h2>
+        </div>
+      </header>
+      {!pokemonInfo ? (
         <>
-          <header className="bg-bgRed p-3 rounded-sm">
-            <h2 className="font-pokedex font-bold text-lg text-bgWhite tracking-widest">
-              INFO.
-            </h2>
-          </header>
-
-          <article className="bgPokedex relative h-[72%] w-full flex items-center">
-            <div className="w-full flex justify-evenly">
-              <figure className="w-64">
+          <p>POKEMON NO DISPONIBLE</p>
+        </>
+      ) : (
+        <>
+          <article className="bgPokedex relative h-full md:h-[72%] w-full flex items-center">
+            <div className="w-full flex sm:flex-row flex-col justify-evenly gap-5 sm:gap-0">
+              <figure className="w-64 mx-auto sm:mx-0">
                 <img
                   src={pokemonInfo.officialArtworkSprite}
                   alt={`${pokemonInfo.name} front default sprite`}
-                  className="aspect-square"
+                  className="w-40 mx-auto sm:w-full aspect-square"
                 />
                 <figcaption className="flex justify-center gap-3">
-                  {pokemonInfo.types.map((type) => (
-                    <span className="bg-bgRed p-2" key={type}>
-                      {type}
-                    </span>
-                  ))}
+                  {pokemonInfo.types.map((type) => {
+                    const typeData = typesData.find((t) => t.type === type);
+                    return (
+                      <span
+                        className="flex gap-3 items-center p-2 sm:p-3 rounded-lg font-pokedex font-bold
+                               text-bgWhite uppercase tracking-[.2rem] text-sm sm:text-md"
+                        key={type}
+                        style={{ backgroundColor: typeData?.color }}
+                      >
+                        <img
+                          src={typeData?.img}
+                          alt={`${type} type icon`}
+                          className="w-4 h-4"
+                        />
+                        {type}
+                      </span>
+                    );
+                  })}
                 </figcaption>
               </figure>
 
-              <article className="flex flex-col w-2/5 gap-6 font-pokedex text-lg">
+              <article className="flex flex-col w-full sm:w-2/4 gap-5 font-pokedex text-lg sm:mx-0 mx-auto">
                 <div className="tracking-wider border border-bgBlack rounded-md">
                   <div className="flex gap-2 items-center bg-bgRed text-bgWhite p-2 rounded-md rounded-b-none">
                     <img
                       className="w-6 h-6"
-                      src="images/Pokbg.png"
+                      src="/images/pokeicon.png"
                       alt="pokeball images"
                     />
                     <span>{pokemonInfo.id}</span>
@@ -81,10 +115,10 @@ export const PokemonDetails = () => {
                   </div>
                 </div>
 
-                <div className="flex gap-10 items-center tracking-wider">
+                <div className="flex flex-col items-center sm:flex-row gap-4 sm:gap-10 tracking-wider ">
                   <div className="border-bgBlack border-[1px]">
                     <img
-                      className="w-28 aspect-square border-t-8 border-solid border-bgRed"
+                      className="aspect-square border-t-8 border-solid border-bgRed"
                       src={pokemonInfo.frontDefaultSprite}
                       alt={`${pokemonInfo.name} front default sprite`}
                     />
@@ -104,11 +138,44 @@ export const PokemonDetails = () => {
                     </p>
                   </div>
                 </div>
+                <div className="flex border-bgBlack border-[1px] p-3 min-w-40 w-full md:w-3/4 text-center rounded-md mb-6 sm:mb-0">
+                  <p>{pokemonInfo.flavorText}</p>
+                </div>
               </article>
             </div>
           </article>
+          <div className="flex justify-between mt-1">
+            <Link
+              to={`/pokedex/${pokemonIdNumber - 1}`}
+              className={`bg-bgRed text-bgWhite font-bold py-2 px-4 rounded z-0 ${
+                pokemonIdNumber <= 1 ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              style={{
+                pointerEvents: pokemonIdNumber <= 1 ? "none" : "auto",
+              }}
+            >
+              Anterior
+            </Link>
+            <Link
+              to={`/pokedex/${pokemonIdNumber + 1}`}
+              className={`bg-bgRed text-bgWhite font-bold py-2 px-4 rounded z-0 ${
+                pokemonIdNumber >= 1025 ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              style={{
+                pointerEvents: pokemonIdNumber >= 1025 ? "none" : "auto",
+              }}
+            >
+              Siguiente
+            </Link>
+          </div>
         </>
       )}
     </section>
   );
 };
+
+// Crear Componentes
+// Arreglar errores
+// Crear funcion en otro lado para el fetch
+//Arreglar Footer (en mobile se mueve en horizontal y vertical)
+//Agregar componente SearchBar

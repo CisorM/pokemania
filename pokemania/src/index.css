@@ -37,7 +37,7 @@ body {
 
 .bgPokedex{
   background-image: url("images/bgPokedex.png");
-  background-repeat: repeat;
+  background-repeat: round;
 }
 
 .wave {
