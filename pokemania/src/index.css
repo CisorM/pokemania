@@ -32,7 +32,7 @@ body {
 
 .bgRows{
   background-image: url("images/bg-rows.png");
-  background-repeat: no-repeat;
+  background-repeat: round;
 }
 
 .bgPokedex{
