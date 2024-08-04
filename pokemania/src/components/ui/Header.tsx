@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export const Header = () => {
   return (
     <header className="block w-full p-5">
-      <Link to={"/"} className="flex gap-4 items-center">
+      <Link to={"/"} className="flex gap-4 items-center w-fit">
         <img
           src="images/pokeball.png"
           className="sm:w-16 w-10"

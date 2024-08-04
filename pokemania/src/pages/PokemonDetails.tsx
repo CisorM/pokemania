@@ -42,6 +42,4 @@ export const PokemonDetails = () => {
     </section>
   );
 };
-
-//Arreglar Footer (en mobile se mueve en horizontal y vertical)
 //Agregar componente SearchBar
