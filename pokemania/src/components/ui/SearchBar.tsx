@@ -1,41 +1,54 @@
 import { useState } from "react";
 import { pokemonData } from "../../helpers/pokemons";
+import { useNavigate } from "react-router-dom";
+import { Pokemon } from "../../interfaces/SearchBar";
 
 export const SearchBar = () => {
-  const [searchTerm, setSearchTerm] = useState(""); // Estado para almacenar el término de búsqueda
-  const [searchResults, setSearchResults] = useState([]); // Estado para almacenar los resultados de la búsqueda
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState<Pokemon[]>([]);
+  const navigate = useNavigate();
 
-  const handleSearch = (e) => {
+  const handleLinkClick = (id: string) => {
+    navigate(`${id}`, { replace: true });
+    document.body.style.overflowY = "auto";
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = e.target.value.toLowerCase();
     setSearchTerm(searchTerm);
 
-    if (pokemonData && pokemonData.pokemons) {
+    if (searchTerm === "") {
+      setSearchResults([]);
+    } else if (pokemonData && pokemonData.pokemons) {
       const results = pokemonData.pokemons.filter((pokemon) => {
         return pokemon.name.toLowerCase().includes(searchTerm);
       });
-      setSearchResults(results.slice(0, 7));
+      setSearchResults(results.slice(0, 6));
     } else {
       console.error("pokemonData.pokemon is undefined");
     }
   };
 
   return (
-    <div className="flex flex-col gap-2 w-full">
-      <div className="flex gap-2 w-full rounded-md p-1 border-solid border-bgBlack border-[1px]">
+    <div className="flex flex-col gap-2 w-full justify-center">
+      <div className="flex gap-2 w-full rounded-md p-1 border-solid border-bgBlue border-2">
         <img src="svgs/search.svg" alt="buscar" />
         <input
           placeholder="Buscar pokemon..."
           type="text"
           value={searchTerm}
           onChange={handleSearch}
-          className="overflow-hidden outline-none border-none"
+          className="overflow-hidden outline-none border-none w-full"
         />
       </div>
-
-      {searchResults.length > 0 && (
-        <ul className="flex flex-wrap gap-2">
-          {searchResults.map((pokemon) => (
-            <li key={pokemon.id} className="flex gap-2">
+      {searchResults.length > 0 ? (
+        <ul className="flex flex-col bg-bgWhite gap-2 rounded-lg h-64 overflow-y-auto">
+          {searchResults.map((pokemon: Pokemon) => (
+            <div
+              onClick={() => handleLinkClick(pokemon.id)}
+              key={pokemon.id}
+              className="flex items-center capitalize m-1 rounded-lg bg-bgBlanco gap-2 cursor-pointer border-b-2 hover:border-bgBlue"
+            >
               <img
                 src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
                 alt={pokemon.name}
@@ -43,9 +56,22 @@ export const SearchBar = () => {
                 height={40}
               />
               <span>{pokemon.name}</span>
-            </li>
+            </div>
           ))}
         </ul>
+      ) : (
+        searchTerm !== "" && (
+          <div className="mx-auto">
+            <p className="text-center text-xl font-pokedex">
+              No se encontraron resultados
+            </p>
+            <img
+              className="w-64 h-fit "
+              src="images/slowpoke.png"
+              alt="pokemon no encontrado"
+            />
+          </div>
+        )
       )}
     </div>
   );
