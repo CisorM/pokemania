@@ -28,7 +28,7 @@ export const Modal = ({ children, isOpen, setIsOpen }: ModalProps) => {
     <>
       <dialog
         className="w-3/4 transition-all p-8 border-3 
-			border-bgGrey border-solid rounded-lg fixed"
+			border-bgGrey border-solid rounded-lg fixed bottom-36 md:bottom-0"
         ref={dialogRef}
       >
         <div className="absolute top-4 right-4 flex items-center gap-2">

@@ -9,7 +9,7 @@ import {
   PokeInfoText,
 } from "../components/index";
 
-export const PokemonDetails = () => {
+const PokemonDetails = () => {
   const { pokemonId } = useParams<{ pokemonId: string }>();
   const [pokemonInfo, setPokemonInfo] = useState<PokemonInfo>();
 
@@ -42,4 +42,4 @@ export const PokemonDetails = () => {
     </section>
   );
 };
-//Agregar componente SearchBar
+export default PokemonDetails;

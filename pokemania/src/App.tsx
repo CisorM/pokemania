@@ -1,31 +1,28 @@
-import { Outlet, useLocation } from "react-router-dom"
-import { Header, Footer } from "./components/index"
-import { useEffect, useState } from "react"
-import { BarsTransition } from './components/ui/SlideTransition';
-import { PokemonProvider } from "./context/PokedexContext";
-
+import { Outlet, useLocation } from "react-router-dom";
+import { Header, Footer } from "./components/index";
+import { Suspense, useEffect, useState } from "react";
+import { BarsTransition } from "./components/ui/SlideTransition";
 export function App() {
-  const location = useLocation()
-  const [animate, setAnimate] = useState(false)
+  const location = useLocation();
+  const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-    setAnimate(true)
+    setAnimate(true);
     setTimeout(() => {
-      setAnimate(false)
-    }, 350) 
-  }, [location])
+      setAnimate(false);
+    }, 350);
+  }, [location]);
 
   return (
-    <PokemonProvider>
-      <main className="w-[95%] m-auto">
-        <BarsTransition animate={animate} />
-        <Header />
-        <section className="w-[95%] m-auto">
+    <main className="w-[95%] m-auto">
+      <BarsTransition animate={animate} />
+      <Header />
+      <section className="w-[95%] m-auto">
+        <Suspense fallback={<div>Loading...</div>}>
           <Outlet />
-        </section>
-        <Footer />
-      </main>
-    </PokemonProvider>
-  )
+        </Suspense>
+      </section>
+      <Footer />
+    </main>
+  );
 }
-
