@@ -55,11 +55,8 @@ const Board = () => {
   return (
     <main className="w-fit my-10 mx-auto text-center">
       <h1 className="font-bold text-3xl mb-4 font-pokedex tracking-wider">
-        Tic tac toe
+        Tic-tac-toe
       </h1>
-      <button className="btn mx-auto rounded-lg mb-4" onClick={resetGame}>
-        Reset del juego
-      </button>
       <section className="grid grid-cols-3 gap-3">
         {board.map((square: null | string, index: number) => {
           return (
@@ -69,6 +66,9 @@ const Board = () => {
           );
         })}
       </section>
+      <button className="btn mx-auto rounded-lg my-4" onClick={resetGame}>
+        Reset del juego
+      </button>
 
       <section className="flex gap-6 justify-center my-4 mx-auto w-fit relative rounded-xl">
         <Square isSelected={turn === TURNS.X}>{TURNS.X}</Square>
