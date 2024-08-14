@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { lazy } from "react";
 import { App } from "./App";
 import HomePage from "./pages/HomePage";
+import Board from "./pages/Board";
 import { PokemonProvider } from "./context/PokedexContext";
 
 const Pokedex = lazy(() => import("./pages/Pokedex"));
@@ -24,7 +25,7 @@ export const router = createBrowserRouter([
         ),
       },
       { path: "pokedex/:pokemonId", element: <PokemonDetails /> },
-      { path: "local", element: <div>Partida local</div> },
+      { path: "local", element: <Board /> },
     ],
   },
   {
