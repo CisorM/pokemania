@@ -1,5 +1,5 @@
-import { PokedexList, PokemonSpecies, PokemonType } from "../interfaces/Pokedex";
-import { Pokemon, PokemonInfo } from "../interfaces/Pokedex";
+import { PokedexList, PokemonSpecies, PokemonType } from "../../interfaces/Pokedex";
+import { Pokemon, PokemonInfo } from "../../interfaces/Pokedex";
 
 const baseURL = 'https://pokeapi.co/api/v2/';
 
@@ -52,3 +52,6 @@ export const getPokemonInfo = async (pokemonId: string | undefined): Promise<Pok
       throw error;
     }
   };
+
+//--------------------------------------------------------------
+

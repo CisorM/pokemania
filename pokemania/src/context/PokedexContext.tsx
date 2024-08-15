@@ -1,6 +1,9 @@
-import { createContext, useState, useEffect, ReactNode } from 'react';
-import { getAllPokemon, getAllPokemonByType } from '../helpers/utils';
-import { Pokemon } from '../interfaces/Pokedex';
+import { createContext, useState, useEffect, ReactNode } from "react";
+import {
+  getAllPokemon,
+  getAllPokemonByType,
+} from "../helpers/utils/getPokemonInfo";
+import { Pokemon } from "../interfaces/Pokedex";
 
 interface PokemonContext {
   pokemons: Pokemon[];
@@ -19,10 +22,12 @@ export const PokemonContext = createContext<PokemonContext>({
   setRegion: () => {},
   setType: () => {},
   setPage: () => {},
-  setFetchByRegion: () => {}
+  setFetchByRegion: () => {},
 });
 
-export const PokemonProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const PokemonProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [region, setRegion] = useState<number>(1);
@@ -36,19 +41,27 @@ export const PokemonProvider: React.FC<{ children: ReactNode }> = ({ children })
       setLoading(true);
       if (fetchByRegion) {
         const response = await getAllPokemon(region);
-        const pokemonPokedex = response.pokemon_entries.slice((page - 1) * limit, page * limit).map(async (poke) => {
-          const speciesResponse = await fetch(poke.pokemon_species.url).then((res) => res.json());
-          const varietiesResponse = await fetch(speciesResponse.varieties[0].pokemon.url).then((res) => res.json());
-          return { ...speciesResponse, ...varietiesResponse };
-        });
+        const pokemonPokedex = response.pokemon_entries
+          .slice((page - 1) * limit, page * limit)
+          .map(async (poke) => {
+            const speciesResponse = await fetch(poke.pokemon_species.url).then(
+              (res) => res.json()
+            );
+            const varietiesResponse = await fetch(
+              speciesResponse.varieties[0].pokemon.url
+            ).then((res) => res.json());
+            return { ...speciesResponse, ...varietiesResponse };
+          });
         const pokemonArray = await Promise.all(pokemonPokedex);
         setPokemons(pokemonArray);
       } else {
         const response = await getAllPokemonByType(type);
-        const pokemonType = response.pokemon.slice((page - 1) * limit, page * limit).map(async (poke) => {
-          const pokemonResults = await fetch(poke.pokemon.url);
-          return pokemonResults.json(); 
-        });
+        const pokemonType = response.pokemon
+          .slice((page - 1) * limit, page * limit)
+          .map(async (poke) => {
+            const pokemonResults = await fetch(poke.pokemon.url);
+            return pokemonResults.json();
+          });
         const pokemonArray = await Promise.all(pokemonType);
         setPokemons(pokemonArray);
       }
@@ -58,7 +71,17 @@ export const PokemonProvider: React.FC<{ children: ReactNode }> = ({ children })
   }, [region, page, type, fetchByRegion]);
 
   return (
-    <PokemonContext.Provider value={{ pokemons, loading, setRegion, setType, setPage, page, setFetchByRegion }}>
+    <PokemonContext.Provider
+      value={{
+        pokemons,
+        loading,
+        setRegion,
+        setType,
+        setPage,
+        page,
+        setFetchByRegion,
+      }}
+    >
       {children}
     </PokemonContext.Provider>
   );

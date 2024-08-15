@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { pokemonData } from "../../helpers/pokemons";
+import { pokemonData } from "../../../helpers/pokemons";
 import { useNavigate } from "react-router-dom";
-import { Pokemon } from "../../interfaces/SearchBar";
+import { Pokemon, SearchBarProps } from "../../../interfaces/SearchBar";
+import { SearchNotFound } from "./NotFound";
+import { InputSearch } from "./Input";
 
-interface SearchBarProps {
-  handleLinkClick?: (id: string | null) => void;
-}
-
-export const SearchBar = ({ handleLinkClick }: SearchBarProps) => {
-  const [searchTerm, setSearchTerm] = useState("");
+export const SearchBar = ({
+  handleLinkClick,
+  setOpen,
+  searchTerm,
+  setSearchTerm,
+}: SearchBarProps) => {
   const [searchResults, setSearchResults] = useState<Pokemon[]>([]);
   const navigate = useNavigate();
 
@@ -35,6 +37,7 @@ export const SearchBar = ({ handleLinkClick }: SearchBarProps) => {
 
   const handleClick = (id: string) => {
     if (handleLinkClick) {
+      setOpen(false);
       handleLinkClick(id);
     } else {
       defaultHandleLinkClick(id);
@@ -43,16 +46,7 @@ export const SearchBar = ({ handleLinkClick }: SearchBarProps) => {
 
   return (
     <div className="flex flex-col gap-2 w-full justify-center">
-      <div className="flex gap-2 w-full rounded-md p-1 border-solid border-bgBlue border-2">
-        <img src="svgs/search.svg" alt="buscar" />
-        <input
-          placeholder="Buscar pokemon..."
-          type="text"
-          value={searchTerm}
-          onChange={handleSearch}
-          className="overflow-hidden outline-none border-none w-full"
-        />
-      </div>
+      <InputSearch searchTerm={searchTerm} handleSearch={handleSearch} />
       {searchResults.length > 0 ? (
         <ul className="flex flex-col bg-bgWhite gap-2 rounded-lg h-64 overflow-y-auto">
           {searchResults.map((pokemon: Pokemon) => (
@@ -72,18 +66,7 @@ export const SearchBar = ({ handleLinkClick }: SearchBarProps) => {
           ))}
         </ul>
       ) : (
-        searchTerm !== "" && (
-          <div className="mx-auto">
-            <p className="text-center text-xl font-pokedex">
-              No se encontraron resultados
-            </p>
-            <img
-              className="w-64 h-fit "
-              src="images/slowpoke.png"
-              alt="pokemon no encontrado"
-            />
-          </div>
-        )
+        searchTerm !== "" && <SearchNotFound />
       )}
     </div>
   );

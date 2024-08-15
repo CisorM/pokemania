@@ -10,7 +10,7 @@ const HomePage = () => {
               Pokemon Tic Tac Toe
             </h1>
             <span className="sm:text-2xl text-xl font-pokedex">
-              Completa la pokedex
+              Explora la pokedex
             </span>
           </div>
           <div className="flex flex-col gap-4 md:items-center lg:items-start">

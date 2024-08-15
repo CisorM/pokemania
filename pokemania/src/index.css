@@ -189,19 +189,19 @@ body {
     border-radius: 5px;
     display: grid;
     place-items: center;
-    cursor: pointer;
     font-size: 48px;
+    transition: all;
+    cursor: default;
   }
-
-.turn .square,
-.winner .square {
-  width: 70px;
-  height: 70px;
-  pointer-events: none;
-  border-color: transparent;
-}
 
 .square.is-selected {
   color: #fff;
   box-shadow: 0 0 0 4px rgba(189, 55, 54, 0.5);
+}
+
+.board .square:hover{
+  transition: all;
+  background-color: #3b3a3a;
+  opacity: .1;
+  cursor: pointer;
 }

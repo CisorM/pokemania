@@ -1,6 +1,6 @@
 import { FilterModal } from "./FilterModal";
 import { useState } from "react";
-import { SearchBarModal } from "../ui/SearchBarModal";
+import { SearchBarModal } from "../ui/Searchbar/SearchBarModal";
 
 export const Filter = ({
   setActiveIndex,
@@ -11,6 +11,7 @@ export const Filter = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [openSearch, setSearch] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const handleModal = () => setOpen(!open);
   const handleSearch = () => setSearch(!openSearch);
 
@@ -29,7 +30,12 @@ export const Filter = ({
         Buscar
       </button>
       <div>
-        <SearchBarModal isOpen={openSearch} setIsOpen={setSearch} />
+        <SearchBarModal
+          isOpen={openSearch}
+          setIsOpen={setSearch}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
       </div>
       <FilterModal
         isOpen={open}

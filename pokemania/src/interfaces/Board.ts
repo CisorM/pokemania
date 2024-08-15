@@ -1,10 +1,18 @@
 import { ReactNode } from "react";
 
+interface Combination {
+  type: string; 
+  region: string;
+}
+
 export interface SquareProps {
   children: ReactNode;
   isSelected?: boolean;
   updateBoard?: (index: number) => void;
   index?: number;
+  combination?: Combination; 
+  turn?: string;
+	setTurn?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface WinnerModalProps {

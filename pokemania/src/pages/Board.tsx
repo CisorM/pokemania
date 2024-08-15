@@ -6,13 +6,22 @@ import { TURNS } from "../helpers/boardConfig";
 import { checkEndGame, checkWinnerFrom } from "../logic/board";
 import { resetGameStorage, saveGameToStorage } from "../logic/storage";
 import { boards } from "../helpers/combinations";
+import BoardLeft from "../components/board/LeftBoard";
+import TopBoard from "../components/board/TopBoard";
 
 const Board = () => {
   type Winner = string | null | false;
+
   const [board, setBoard] = useState(() => {
     const boardFromStorage = window.localStorage.getItem("board");
-    if (boardFromStorage) return JSON.parse(boardFromStorage);
-    return Array(9).fill(null);
+    return boardFromStorage
+      ? JSON.parse(boardFromStorage)
+      : Array(9).fill(null);
+  });
+
+  const [BoardGenerated, setBoardGenerated] = useState(() => {
+    const indiceAleatorio = Math.floor(Math.random() * boards.length);
+    return boards[indiceAleatorio];
   });
 
   const [turn, setTurn] = useState(() => {
@@ -24,24 +33,28 @@ const Board = () => {
   const [isOpen, setIsOpen] = useState(false);
   const handleModal = () => setIsOpen(true);
 
-  const indiceAleatorio = Math.floor(Math.random() * boards.length);
-  const BoardGenerated = boards[indiceAleatorio];
-  console.log(BoardGenerated);
-
-  const typesArray = [];
-  for (let index = 0; index < 3; index++) {
-    const type = BoardGenerated[index].map((type) => type.type);
-    typesArray.push(type);
-  }
+  const squareCombinations = [
+    BoardGenerated[0][0],
+    BoardGenerated[0][1],
+    BoardGenerated[0][2],
+    BoardGenerated[1][0],
+    BoardGenerated[1][1],
+    BoardGenerated[1][2],
+    BoardGenerated[2][0],
+    BoardGenerated[2][1],
+    BoardGenerated[2][2],
+  ];
 
   const regions = BoardGenerated[0].map((regions) => regions.region);
-  const types = [...new Set(typesArray.flat())];
 
   const resetGame = () => {
     setBoard(Array(9).fill(null));
     setTurn(TURNS.X);
     setWinner(null);
     resetGameStorage();
+
+    const newBoardGenerated = boards[Math.floor(Math.random() * boards.length)];
+    setBoardGenerated(newBoardGenerated);
   };
 
   const updateBoard = (index: number) => {
@@ -61,6 +74,7 @@ const Board = () => {
       setWinner(newWinner);
       confetti();
     } else if (checkEndGame(newBoard)) {
+      window.alert("Empate");
       setWinner(false); // empate
     }
   };
@@ -71,28 +85,22 @@ const Board = () => {
         Tic-tac-toe
       </h1>
       <section className="grid grid-cols-5 gap-3 items-center">
-        <div className="grid grid-rows-3 gap-3">
-          <div className=""></div>{" "}
-          {types.map((type, index) => (
-            <div key={index} className="text-right pr-2 h-[100px] capitalize">
-              <div className="w-full text-center bg-bgGray rounded-lg px-2 py-2">
-                {type}
-              </div>
-            </div>
-          ))}
-        </div>
+        <BoardLeft BoardGenerated={BoardGenerated} />
 
         <div className="col-span-4">
-          <div className="grid grid-cols-3 gap-3">
+          <div className="board grid grid-cols-3 gap-3">
             {regions.map((region, index) => (
-              <div key={index} className="text-center">
-                <div className="w-3/4 mx-auto text-center bg-bgGray rounded-lg px-2 py-2">
-                  {region}
-                </div>
-              </div>
+              <TopBoard key={index} region={region} />
             ))}
             {board.map((square: null | string, index: number) => (
-              <Square key={index} index={index} updateBoard={updateBoard}>
+              <Square
+                key={index}
+                index={index}
+                updateBoard={updateBoard}
+                combination={squareCombinations[index]}
+                turn={turn}
+                setTurn={setTurn}
+              >
                 {square}
               </Square>
             ))}
