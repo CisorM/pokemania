@@ -74,7 +74,6 @@ const Board = () => {
       setWinner(newWinner);
       confetti();
     } else if (checkEndGame(newBoard)) {
-      window.alert("Empate");
       setWinner(false); // empate
     }
   };

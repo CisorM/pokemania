@@ -2,12 +2,12 @@ import { createBrowserRouter } from "react-router-dom";
 import { lazy } from "react";
 import { App } from "./App";
 import HomePage from "./pages/HomePage";
-import Board from "./pages/Board";
 import { PokemonProvider } from "./context/PokedexContext";
 
 const Pokedex = lazy(() => import("./pages/Pokedex"));
 const PokemonDetails = lazy(() => import("./pages/PokemonDetails"));
 const Page404 = lazy(() => import("./pages/Page404"));
+const Board = lazy(() => import("./pages/Board"));
 
 export const router = createBrowserRouter([
   {

@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { PokemonInfo } from "../interfaces/Pokedex";
-import { getPokemonInfo } from "../helpers/utils";
 import {
   HeaderInfo,
   BtnPokedexInfo,
   PokeInfoImage,
   PokeInfoText,
 } from "../components/index";
+import { getPokemonInfo } from "../helpers/utils/getPokemonInfo";
 
 const PokemonDetails = () => {
   const { pokemonId } = useParams<{ pokemonId: string }>();
