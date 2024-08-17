@@ -1,5 +1,5 @@
 import { ModalProps } from "../../../interfaces/ModalProps";
-import { Modal } from "../../ui/Modal";
+import { Modal } from "../Modal";
 import { SearchBar } from "./SearchBar";
 
 export const SearchBarModal: React.FC<ModalProps> = ({

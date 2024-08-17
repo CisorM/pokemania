@@ -1,5 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/pokemania/src/(.*)", "destination": "/pokemania/src/index.html" }
-  ]
-}
