@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { PokemonCardProps } from "../../interfaces/PokemonCardProps";
 import { PokemonContext } from "../../context/PokedexContext";
 import { PokemonItem } from "./PokemonItem";
-import { CreateButton } from "./PokedexButton.tsx";
+import { CreateButton } from "./PokedexButton";
 
 export const PokemonCard: React.FC<PokemonCardProps> = ({
   pokemon,

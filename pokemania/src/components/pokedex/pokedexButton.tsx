@@ -1,6 +1,10 @@
-import { ButtonProps } from '../../interfaces/PokemonCardProps';
+import { ButtonProps } from "../../interfaces/PokemonCardProps";
 
-export const CreateButton: React.FC<ButtonProps> = ({ onClick, className, icon }) => {
+export const CreateButton: React.FC<ButtonProps> = ({
+  onClick,
+  className,
+  icon,
+}) => {
   return (
     <button className={className} onClick={onClick}>
       {icon}
