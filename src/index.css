@@ -16,12 +16,12 @@
 
 @font-face {
     font-family: 'Pokedex';
-    src: url('/dist/fonts/pokemon.woff2') format('truetype');
+    src: url('/public/fonts/pokemon.woff2') format('truetype');
 }
 
 @font-face {
     font-family: 'Flexo-Medium';
-    src: url('/dist/fonts/flexo.woff2') format('truetype');
+    src: url('/public/fonts/flexo.woff2') format('truetype');
 }
 
 body {
@@ -31,17 +31,17 @@ body {
 }
 
 .bgRows{
-  background-image: url("/dist/images/bg-rows.png");
+  background-image: url("/public/images/bg-rows.png");
   background-repeat: round;
 }
 
 .bgPokedex{
-  background-image: url("/dist/images/bgPokedex.png");
+  background-image: url("/public/images/bgPokedex.png");
   background-repeat: round;
 }
 
 .wave {
-    background: url("/dist/svgs/wave.svg") repeat-x;
+    background: url("/public/svgs/wave.svg") repeat-x;
     position: absolute;
     bottom: 0;
     right: 0;
@@ -51,7 +51,7 @@ body {
   }
 
 .wave#lapras {
-    background: url("/dist/images/lpras.png") no-repeat;
+    background: url("/public/images/lpras.png") no-repeat;
     background-size: 150px;
     width: 100%;
     height: 100px;
