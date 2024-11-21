@@ -24,7 +24,7 @@ const PokemonDetails = () => {
       <HeaderInfo />
       {!pokemonInfo ? (
         <>
-          <p>POKEMON NO DISPONIBLE</p>
+          <p>¡POKEMON NO DISPONIBLE!</p>
         </>
       ) : (
         //Renderizar componente de error
